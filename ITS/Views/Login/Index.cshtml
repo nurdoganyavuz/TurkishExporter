@@ -1,0 +1,73 @@
+﻿@model KobiAsITS.Models.User
+@{
+    ViewData["Title"] = "Talep Takip Sistemi";
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+
+
+<none>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Talep Takip Sistemi Giriş Sayfası</title>
+        <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="~/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="~/assets/css/animate.css" rel="stylesheet">
+        <link href="~/assets/css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body class="gray-bg">
+        <div class="middle-box text-center loginscreen animated fadeInDown">
+            <div>
+                <div>
+
+                    <h1 class="logo-name">TE</h1>
+
+                </div>
+                <h3>Talep Takip Sistemine Hoşgeldiniz!</h3>
+                <p>
+                    Talep Süreçlerini Buradan Hızlı Bir Şekilde Takip Edebilirsiniz.
+                </p>
+                <p>Giriş Bilgileri</p>
+                <form class="m-t" action="/Login/Index" method="post">
+
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Username" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                    <a asp-action="ResetPassword" asp-controller="Login"><small>Şifremi Unuttum?</small></a>
+                   
+                </form>
+                @if (ViewBag.LoginError != null)
+                {
+                    <p class="text-muted text-center">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            @ViewBag.LoginError
+                        </div>
+                    </p>
+                }
+                <p class="m-t"> <small>Talep Takip Sistemi &copy; @DateTime.Now.Year</small> </p>
+            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="~/assets/js/jquery-3.1.1.min.js"></script>
+        <script src="~/assets/js/popper.min.js"></script>
+        <script src="~/assets/js/bootstrap.js"></script>
+
+    </body>
+
+
+    <none>
+</html>
+

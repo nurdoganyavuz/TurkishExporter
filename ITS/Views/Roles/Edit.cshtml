@@ -1,0 +1,57 @@
+﻿@model KobiAsITS.Models.Role
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="...">
+    <div class="pager">
+        <a href="/Roles/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+    </div>
+</nav>
+
+<h1>Düzenle</h1>
+
+
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Rol Bilgileri </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <form asp-action="Edit">
+                    <div class="ibox-content">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreateDate" />
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Rol Adı</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <label style="text-align:left">
+                            Durum
+
+                            <div class="custom-control custom-switch" style="text-align:center">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" asp-for="Status" />
+                                <label class="custom-control-label" for="customSwitch1">
+                                </label>
+                            </div>
+                        </label>
+                        <div class="form-group" style="text-align:right">
+                            <input type="submit" value="Kaydet" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</form>

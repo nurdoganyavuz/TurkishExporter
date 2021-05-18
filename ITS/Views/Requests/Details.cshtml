@@ -1,0 +1,165 @@
+﻿@model KobiAsITS.Models.Request
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<RequestFile> RequestFiles = null;
+    if (ViewData["RequestFiles"] != null)
+    {
+        RequestFiles = (List<RequestFile>)ViewData["RequestFiles"];
+    }
+}
+<nav aria-label="...">
+    <div class="pager">
+        <a href="/Requests/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+    </div>
+</nav>
+<h1 >Detaylar</h1>
+
+<form asp-action="Details">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Talep</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Uuid" /> <!-- Bu datalar ön tarafta gösterilmediği için bu tarafta hidden tutulabilir..!! -->
+
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Gönderen Kişi</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="User.UserFirstName" class="form-control" disabled>
+                                @Html.DisplayFor(model => model.User.UserFirstName)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Departman</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="User.Department.DepartmentName" class="form-control" disabled>
+                                @Html.DisplayFor(model => model.User.Department.DepartmentName)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="RequestTitle" class="col-sm-4 col-form-label">Talep Başlığı</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="RequestTitle" class="form-control" disabled>
+                                @Html.DisplayFor(model => model.RequestTitle)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="RequestDescription" class="col-sm-4 col-form-label">Talep Tanımı</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="RequestDescription" class="form-control" disabled>
+                                @Html.DisplayFor(model => model.RequestDescription)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="CreateDate" class="col-sm-4 col-form-label">Oluşturulma Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <input type="date" asp-for="CreateDate" class="form-control" readonly />
+                            <span asp-validation-for="CreateDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label" for="inputState">Öncelik Durumu</label>
+                        <div class="col-sm-8">
+                            <select id="Priority" name="Priority" class="form-control" disabled>
+                                @if (Model.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
+                                {
+                                    <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.LowPriority</option>
+
+                                }
+                                else if (Model.Priority == @KobiAsITS.Enums.ValueEnums.MediumPriorityByte)
+                                {
+                                    <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.MediumPriority</option>
+
+                                }
+                                else if (Model.Priority == @KobiAsITS.Enums.ValueEnums.HighPriorityByte)
+                                {
+                                    <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.HighPriority</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
+
+                                }
+                                <option value=@KobiAsITS.Enums.ValueEnums.LowPriorityByte>@KobiAsITS.Enums.ValueEnums.LowPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.MediumPriorityByte>@KobiAsITS.Enums.ValueEnums.MediumPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.HighPriorityByte>@KobiAsITS.Enums.ValueEnums.HighPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.UrgentPriorityByte>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="Status" class="col-sm-4 col-form-label">Onay Durumu</label>
+
+                        <div class="col-sm-8">
+                            <select name="Status" id="Status" class="form-control" disabled>
+
+                                @if (Model.Status == @KobiAsITS.Enums.ValueEnums.waitingByteStatus)
+                                {
+                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
+
+                                }
+                                else if (Model.Status == @KobiAsITS.Enums.ValueEnums.confirmByteStatus)
+                                {
+                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
+
+                                }
+                                <option value=@KobiAsITS.Enums.ValueEnums.waitingByteStatus>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.confirmByteStatus>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.deniedByteStatus>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Dosyalar</label>
+                        <div class="col-sm-8">
+                            @if (RequestFiles != null && RequestFiles.Count > 0)
+                            {
+                                foreach (var item in RequestFiles)
+                                {
+                                    <div>
+                                        @Html.ActionLink(" " + item.FilePath, "Download", new { FilePath = item.FilePath }, new { @class = "btn btn-dark fa fa-download" })
+                                        <br /> <br />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <nav aria-label="..." style="text-align:right">
+                        <div class="pager">
+                            <a href="/Requests/Edit?Uuid=@Model.Uuid" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

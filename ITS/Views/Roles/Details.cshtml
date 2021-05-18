@@ -1,0 +1,63 @@
+﻿@model KobiAsITS.Models.Role
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<nav aria-label="...">
+    <div class="pager">
+        <a href="/Roles/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+    </div>
+</nav>
+
+<h1 style="text-align:left">Detaylar</h1>
+
+<form asp-action="Details">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Rol</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Rol Adı</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="Name" class="form-control" disabled>
+                                @Html.DisplayFor(model => model.Name)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="CreateDate" class="col-sm-4 col-form-label">Oluşturulma Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="CreateDate" class="form-control" disabled>
+                                @if (Model.CreateDate != null)
+                                {
+                                    @(((DateTime)Model.CreateDate).ToString("dd/MM/yyyy"))
+                                }
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <nav aria-label="..." style="text-align:right">
+                        <div class="pager">
+                            <a href="/Roles/Edit?Id=@Model.Id" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

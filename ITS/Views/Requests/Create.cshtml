@@ -1,0 +1,93 @@
+﻿@model KobiAsITS.Models.Request
+
+@{
+    ViewData["Title"] = "Talep Oluşturma Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Talep Ekle</h1>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        @TempData["message"]
+    </div>
+    TempData.Remove("message");
+}
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Talep Oluşturma </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Başlığı</label>
+
+                        <div class="col-sm-8">
+                            <input name="RequestTitle" id="RequestTitle" required type="text" class="form-control" placeholder="Talep Başlığı" />
+
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Tanımı</label>
+
+                        <div class="col-sm-8">
+                            <input name="RequestDescription" id="RequestDescription" required type="text" class="form-control" placeholder="Talep Tanımı" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Ek-Resim</label>
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input type="file" name="files" class="form-control file2 inline btn btn-primary" multiple="1" id="files" data-label="<i class = 'glyphicon glyphicon-circle-arrow-up'></i>Yükle" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label" for="inputState">Öncelik Durumu</label>
+                        <div class="col-sm-8">
+                            <select id="Priority" name="Priority" class="form-control">
+                                <option hidden selected disabled>Seçiniz...</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.LowPriorityByte>@KobiAsITS.Enums.ValueEnums.LowPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.MediumPriorityByte>@KobiAsITS.Enums.ValueEnums.MediumPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.HighPriorityByte>@KobiAsITS.Enums.ValueEnums.HighPriority</option>
+                                <option value=@KobiAsITS.Enums.ValueEnums.UrgentPriorityByte>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Gönderme Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <input name="CreateDate" id="CreateDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" class="form-control" placeholder="Talep Gönderme Tarihi" readonly />
+
+                        </div>
+                    </div>
+
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="col-sm-12">
+                        <button class="btn btn-block btn-outline btn-primary" type="submit">Kaydet</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

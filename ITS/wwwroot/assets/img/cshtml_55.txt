@@ -1,0 +1,9 @@
+---/request view*details*ilerleme durumu/---
+<div class="form-group  row">
+            <label asp-for="RequestProgressStatus" class="col-sm-4 col-form-label">İlerleme Durumu</label>
+
+            <div class="col-sm-8">
+                <input asp-for="RequestProgressStatus" class="form-control" readonly />
+                <span asp-validation-for="RequestProgressStatus" class="text-danger"></span>
+            </div>
+        </div>

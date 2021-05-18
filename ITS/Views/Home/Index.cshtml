@@ -1,0 +1,84 @@
+﻿@model KobiAsITS.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@section css {
+    <link href="~/pageCss/Home/Index.css" rel="stylesheet" />
+}
+@section scripts {
+    
+    <!-- Flot -->
+    <script src="~/assets/js/plugins/flot/jquery.flot.js"></script>
+    <script src="~/assets/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/assets/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="~/assets/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="~/assets/js/plugins/flot/jquery.flot.time.js"></script>
+
+    <!-- ChartJS-->
+    <script src="~/assets/js/plugins/chartJs/Chart.min.js"></script>
+
+    <script>
+        var sendTheMostRequestByDepartment = @Html.Raw(Model.SendTheMostRequestByDepartment);
+        var requestsData = {
+            labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+            datasets: [
+                {
+                    label: "Bekleyen Talepler",
+                    backgroundColor: '#7a98c0',
+                    pointBorderColor: "#fff",
+                    data: @Html.Raw(Model.WaitingRequests)
+                },
+                {
+                    label: "Onaylanan Talepler",
+                    backgroundColor: '#66d266',
+                    borderColor: "#66d266",
+                    pointBackgroundColor: "#66d266",
+                    pointBorderColor: "#fff",
+                    data: @Html.Raw(Model.ConfirmRequests)
+                },
+                {
+                    label: "Reddedilen Talepler",
+                    backgroundColor: '#FF4C4C',
+                    pointBorderColor: "#fff",
+                    data: @Html.Raw(Model.DeniedRequests)
+                }
+            ]
+        };
+
+    </script>
+    <script src="~/pageScripts/Home/Index.js"></script>
+}
+
+<div class="row">
+
+      <div class="col-lg-6">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Talep Durum Grafiği</h5>
+                <div class="ibox-tools">
+                    <input id='requestStatusFilterYear' class="date-own" type="text" value="@(ViewBag.Year)">
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="ibox-content" style="height:400px">
+                <canvas id="requestStatus" height="150"></canvas>  
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>En Çok Talep Gelen Departmanlar</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="ibox-content" style="height:400px">
+                 <div class="flot-chart">
+                    <div class="flot-chart-pie-content" id="sendTheMostRequestByDepartment" style="width:300px;height:400px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

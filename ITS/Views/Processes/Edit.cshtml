@@ -1,0 +1,143 @@
+﻿@model KobiAsITS.Models.Process
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<nav aria-label="...">
+    <div class="pager">
+        <a href="/Processes/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+    </div>
+</nav>
+
+<h1>Düzenle</h1>
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>İşlem Detayları</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="RequestId" />
+
+                        <div class="form-group">
+                            <label asp-for="RequestId" class="control-label">Talep Başlığı</label>
+                            <select asp-for="RequestId" class="form-control" asp-items="ViewBag.RequestId" disabled></select>
+                            <span asp-validation-for="RequestId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VerificationDate" class="control-label">Onaylama Tarihi</label>
+                            <input name="VerificationDate" id="VerificationDate" type="date" value="@Model.VerificationDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Onaylama Tarihi" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ExpectedEndDate" class="control-label">Tahmini Bitiş Tarihi</label>
+                            @if (Model.ExpectedEndDate == null)
+                            {
+                                <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" placeholder="Tahmini Bitiş Tarihi" required />
+
+                            }
+                            else
+                            {
+                                <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" value="@Model.ExpectedEndDate.Value.ToString("yyyy-MM-dd")" placeholder="Tahmini Bitiş Tarihi" required />
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ExpirationDate" class="control-label">Kesin Bitiş Tarihi</label>
+                            @if (Model.ExpirationDate == null)
+                            {
+                                <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" placeholder="Kesin Bitiş Tarihi" />
+
+                            }
+                            else
+                            {
+                                <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" value="@Model.ExpirationDate.Value.ToString("yyyy-MM-dd")" placeholder="Kesin Bitiş Tarihi" />
+                            }
+
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="col-sm-4 col-form-label" for="inputState">İşlem Durumu</label>
+                            <div class="col-sm-8">
+                                <select id="Status" name="Status" class="form-control">
+                                    @if (Model.Status == @KobiAsITS.Enums.ValueEnums.ContinueByteStatus)
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.Continue</option>
+
+                                    }
+                                    else if (Model.Status == @KobiAsITS.Enums.ValueEnums.PauseByteStatus)
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.Pause</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.Completed</option>
+
+                                    }
+
+                                    <option value=@KobiAsITS.Enums.ValueEnums.ContinueByteStatus>@KobiAsITS.Enums.ValueEnums.Continue</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.PauseByteStatus>@KobiAsITS.Enums.ValueEnums.Pause</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.CompletedByteStatus>@KobiAsITS.Enums.ValueEnums.Completed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <label class="col-sm-4 col-form-label" for="inputState">Öncelik Durumu</label>
+                            <div class="col-sm-8">
+                                <select id="Priority" name="Priority" class="form-control">
+                                    @if (Model.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
+                                    {
+                                        <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.LowPriority</option>
+
+                                    }
+                                    else if (Model.Priority == @KobiAsITS.Enums.ValueEnums.MediumPriorityByte)
+                                    {
+                                        <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.MediumPriority</option>
+
+                                    }
+                                    else if (Model.Priority == @KobiAsITS.Enums.ValueEnums.HighPriorityByte)
+                                    {
+                                        <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.HighPriority</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
+
+                                    }
+                                    <option value=@KobiAsITS.Enums.ValueEnums.LowPriorityByte>@KobiAsITS.Enums.ValueEnums.LowPriority</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.MediumPriorityByte>@KobiAsITS.Enums.ValueEnums.MediumPriority</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.HighPriorityByte>@KobiAsITS.Enums.ValueEnums.HighPriority</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.UrgentPriorityByte>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group  row">
+                            <label asp-for="Request.RequestProgressStatus" class="col-sm-4 col-form-label">İlerleme Durumu</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" name="RequestProgressStatus" value="@Model.Request.RequestProgressStatus" min="@Model.Request.RequestProgressStatus" class="dial m-r" data-fgColor="#1AB394" data-width="85" data-height="85" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align:right">
+                            <input type="submit" value="Güncelle" class="btn btn-primary" />
+                        </div>                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

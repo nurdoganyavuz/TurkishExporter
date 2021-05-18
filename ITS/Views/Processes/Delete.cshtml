@@ -1,0 +1,134 @@
+﻿@model KobiAsITS.Models.Process
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.btndelete').click(function () {
+                var url = $(this).attr('data-url');
+                console.log(url);
+                swal({
+                    title: "Silme Onayı",
+                    text: "Silmek istediğinizden emin misiniz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet",
+                    cancelButtonText: "İptal",
+                    closeOnConfirm: false
+                }, function () {
+                        window.location.href = url;
+                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                });
+            });
+        });
+    </script>
+}
+
+<nav aria-label="...">
+    <div class="pager">
+        <a href="/Processes/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+    </div>
+</nav>
+
+<h1 align="left">Sil</h1>
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>İşlem Detayları</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" />
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Başlığı</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="Request.RequestTitle" class="form-control" readonly>
+                                @Html.DisplayFor(model => model.Request.RequestTitle)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Tanımı</label>
+
+                        <div class="col-sm-8">
+                            <label asp-for="Request.RequestDescription" class="form-control" readonly>
+                                @Html.DisplayFor(model => model.Request.RequestDescription)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label" for="inputState">İşlem Durumu</label>
+                        <div class="col-sm-8">
+                            <label asp-for="Status" class="form-control" readonly>
+                                @{
+                                    if (Model.Status == KobiAsITS.Enums.ValueEnums.ContinueByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.Continue</td>
+                                    }
+                                    else if (Model.Status == KobiAsITS.Enums.ValueEnums.PauseByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.Pause</td>
+                                    }
+                                    else if (Model.Status == KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.Completed</td>
+                                    }
+
+                                }
+
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Onaylanma Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <label class="form-control" readonly>
+                                @Html.DisplayFor(model => model.VerificationDate)
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group  row">
+                        <label asp-for="ExpectedEndDate" class="col-sm-4 col-form-label">Tahmini Bitiş Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <input type="date" asp-for="ExpectedEndDate" class="form-control" readonly />
+                            <span asp-validation-for="ExpectedEndDate" class="text-danger" readonly></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group  row">
+                        <label asp-for="ExpirationDate" class="col-sm-4 col-form-label">Kesin Bitiş Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <input asp-for="ExpirationDate" class="form-control" readonly />
+                            <span asp-validation-for="ExpirationDate" class="text-danger" readonly></span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="text-align:right">
+                        <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Processes", new { id = Model.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
