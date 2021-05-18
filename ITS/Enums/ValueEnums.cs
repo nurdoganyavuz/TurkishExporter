@@ -16,10 +16,10 @@ namespace KobiAsITS.Enums
         public const byte deniedByteStatus = 2;
 
         //----------------------------------------
-        public const string LowPriority = "Low";
-        public const string MediumPriority = "Medium";
-        public const string HighPriority = "High";
-        public const string UrgentPriority = "Urgent";
+        public const string LowPriority = "Düşük";
+        public const string MediumPriority = "Orta";
+        public const string HighPriority = "Yüksek";
+        public const string UrgentPriority = "Acil";
 
         public const byte LowPriorityByte = 0;
         public const byte MediumPriorityByte = 1;

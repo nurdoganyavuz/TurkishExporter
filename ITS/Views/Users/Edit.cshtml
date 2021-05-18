@@ -26,7 +26,7 @@ else
 
 <form asp-action="Edit">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-md-6">
             <div class="ibox ">
                 <div class="ibox-title">
                     <h5>Kullanıcı Bilgileri</h5>
@@ -37,71 +37,94 @@ else
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form asp-action="Edit">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="Id" />
-                        <input type="hidden" asp-for="Uuid" />
-                        <input type="hidden" asp-for="PasswordHash" />
-                        <input type="hidden" asp-for="PasswordSalt" />
 
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Uuid" />
+                    
 
-                        <div class="form-group">
-                            <label asp-for="Department.DepartmentName" class="control-label">Departman Adı</label>
-                            <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
-
-                        </div>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <div class="form-group  row">
-                                <label class="col-sm-4 col-form-label">Kullanıcı Rolü</label>
-                                <div class="col-sm-8">
-                                    <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
-                                </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="form-group  row">
+                            <label class="col-sm-4 col-form-label">Kullanıcı Rolü</label>
+                            <div class="col-sm-8">
+                                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
                             </div>
-                        }
-                        else
-                        {
-                            <input type="hidden" asp-for="RoleId" />
-                        }
-                        <div class="form-group">
-                            <label asp-for="UserFirstName" class="control-label">Adı</label>
-                            <input asp-for="UserFirstName" class="form-control" />
-                            <span asp-validation-for="UserFirstName" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="UserLastName" class="control-label">Soyadı</label>
-                            <input asp-for="UserLastName" class="form-control" />
-                            <span asp-validation-for="UserLastName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Email" class="control-label">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Yeni Şifre</label>
-                            <input name="password" type="text" class="form-control" />
-                        </div>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <label style="text-align:left">
-                                Durum
-                                <div class="custom-control custom-switch" style="text-align:center">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" asp-for="Status" />
-                                    <label class="custom-control-label" for="customSwitch1">
-                                    </label>
-                                </div>
-                            </label>
-                        }
-                        else
-                        {
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="RoleId" />
+                    }
+                    <div class="form-group">
+                        <label asp-for="UserFirstName" class="control-label">Adı</label>
+                        <input asp-for="UserFirstName" class="form-control" />
+                        <span asp-validation-for="UserFirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserLastName" class="control-label">Soyadı</label>
+                        <input asp-for="UserLastName" class="form-control" />
+                        <span asp-validation-for="UserLastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
 
-                            <input type="hidden" asp-for="Status" />
-                        }
-                        <div class="form-group" style="text-align:right">
-                            <input type="submit" value="Kaydet" class="btn btn-primary" />
-                        </div>
-                    </form>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <label style="text-align:left">
+                            Durum
+                            <div class="custom-control custom-switch" style="text-align:center">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" asp-for="Status" />
+                                <label class="custom-control-label" for="customSwitch1">
+                                </label>
+                            </div>
+                        </label>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Status" />
+                    }
+                    <div class="form-group" style="text-align:right">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--şifre değiştirme alanı-->
+        <div class="col-md-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Şifre Değiştirme</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="PasswordHash" />
+                    <input type="hidden" asp-for="PasswordSalt" />
+
+                    <div class="form-group">
+                        <label class="control-label">Yeni Şifre</label>
+                        <input name="password" type="text" class="form-control" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label">Yeni Şifre Tekrar</label>
+                        <input name="passwordRepeat" type="text" class="form-control" />
+                    </div>
+                    <br />
+                    <div class="form-group" style="text-align:right">
+                        <input type="submit" value="Değiştir" class="btn btn-primary" />
+                    </div>
                 </div>
             </div>
         </div>

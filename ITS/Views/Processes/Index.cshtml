@@ -24,7 +24,7 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Talep Tanımı</th>
+                                <th>Talep Açıklaması</th>
                                 <th>Onaylayan Kişi</th>
                                 <th>Onaylama Tarihi</th>
                                 <th>İlerleme Durumu</th>
@@ -109,17 +109,22 @@
                                 }
                                 @if (User.IsInRole("Admin"))
                                 {
-
-                                    <td>
-                                        @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                        @Html.ActionLink("Sil ", "Delete", new { Id = item.Id }, new { @class = "btn btn-danger btn-sm btn-icon entypo-pencil" }) |
-                                        @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
-                                        <!--ActionLink ile Buton İsmi, ActionName yazılır -->
-                                    </td>
+                                    if (item.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                            @Html.ActionLink("Sil ", "Delete", new { Id = item.Id }, new { @class = "btn btn-danger btn-sm btn-icon entypo-pencil" }) |
+                                            @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
+                                            <!--ActionLink ile Buton İsmi, ActionName yazılır -->
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
+                                    }
                                 }
                             </tr>
-
-                            }
+                             }
                         </tbody>
                     </table>
                 </div>

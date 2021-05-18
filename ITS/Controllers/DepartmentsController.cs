@@ -63,6 +63,7 @@ namespace KobiAsITS.Controllers
                 //Generate String Uuid
                 department.Uuid = Guid.NewGuid().ToString();
                 department.Status = ValueEnums.StatusOn;
+                department.CreateDate = DateTime.Now;
                 _context.Add(department);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

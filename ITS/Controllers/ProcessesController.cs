@@ -10,6 +10,7 @@ using KobiAsITS.Models;
 using KobiAsITS.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Query;
+using System.IO;
 
 namespace KobiAsITS.Controllers
 {
@@ -46,14 +47,24 @@ namespace KobiAsITS.Controllers
 
             var process = await _context.Processes
                 .Include(p => p.Request)
+                .Include(p=> p.Request.User)
                 .Include(p => p.Request.User.Department)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            ViewData["RequestFiles"] = null;
+            var requestFile = await _context.RequestFiles.Where(u => u.RequestId == process.RequestId).ToListAsync(); //talebe ait dosyaları listeleme
+            ViewData["RequestFiles"] = requestFile;
             if (process == null)
             {
                 return NotFound();
             }
 
             return View(process);
+        }
+
+        public FileResult Download(string FilePath) //ek dosyaları indirme
+        {
+            var FileVirtualPath = "~/storage/img/requests/" + FilePath;
+            return File(FileVirtualPath, "application/force-download", Path.GetFileName(FileVirtualPath));
         }
 
         // GET: Processes/Edit/5
@@ -65,12 +76,13 @@ namespace KobiAsITS.Controllers
                 return NotFound();
             }
 
-            var process = await _context.Processes.Where(p => p.Id == id).FirstOrDefaultAsync();
+            var process = await _context.Processes.Where(p => p.Id == id).FirstOrDefaultAsync();         
             if (process == null)
             {
                 return NotFound();
             }
-            ViewData["RequestId"] = new SelectList(_context.Requests, "Id", "RequestDescription", process.RequestId);
+            ViewData["RequestId"] = new SelectList(_context.Requests.ToList(), "Id", "RequestDescription" , "RequestProgressStatus");
+           
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", process.UserId);
             return View(process);
         }
@@ -85,17 +97,17 @@ namespace KobiAsITS.Controllers
             {
                 return NotFound();
             }
-            var RequestList = _context.Requests.Where(x => x.Id == process.RequestId).FirstOrDefault();
+            var request = _context.Requests.Where(x => x.Id == process.RequestId).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    request.RequestTitle = process.Request.RequestTitle;
+                    request.RequestDescription = process.Request.RequestDescription;
+                    request.RequestProgressStatus = process.Status == ValueEnums.CompletedByteStatus ? 100 : RequestProgressStatus; //ilerleme durumu %100 old. zaman statusu tamamlandı olarak atanıyor.
+                    process.Request = request;
                     _context.Update(process);
-                    await _context.SaveChangesAsync();
-
-                    RequestList.RequestProgressStatus = process.Status == ValueEnums.CompletedByteStatus ? 100 : RequestProgressStatus;
-                    _context.Update(RequestList);
                     await _context.SaveChangesAsync();
 
                 }
@@ -112,7 +124,7 @@ namespace KobiAsITS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RequestId"] = new SelectList(_context.Requests, "Id", "Id", process.RequestId);
+            ViewData["RequestId"] = new SelectList(_context.Requests.ToList(), "Id", "RequestDescription", "RequestProgressStatus");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", process.UserId);
             return View(process);
         }

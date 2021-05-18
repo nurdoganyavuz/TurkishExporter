@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<RequestFile> RequestFiles = null;
+    if (ViewData["RequestFiles"] != null)
+    {
+        RequestFiles = (List<RequestFile>)ViewData["RequestFiles"];
+    }
 }
 
 <nav aria-label="...">
@@ -38,7 +43,24 @@
                             <span asp-validation-for="Request.User.Department.DepartmentName" class="text-danger" readonly></span>
                         </div>
                     </div>
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talep Gönderen Kişi</label>
 
+                        <div class="col-sm-8">
+                            <label asp-for="Request.User.UserFirstName" class="form-control" readonly>
+                                @Html.DisplayFor(model => model.Request.User.UserFirstName)
+                                @Html.DisplayFor(model => model.Request.User.UserLastName)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  row">
+                        <label asp-for="Request.CreateDate" class="col-sm-4 col-form-label">Talep Gönderme Tarihi</label>
+
+                        <div class="col-sm-8">
+                            <input type="date" asp-for="Request.CreateDate" class="form-control" readonly />
+                            <span asp-validation-for="Request.CreateDate" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="form-group  row">
                         <label asp-for="Request.RequestTitle" class="col-sm-4 col-form-label">Talep Başlığı</label>
 
@@ -49,14 +71,28 @@
                     </div>
 
                     <div class="form-group  row">
-                        <label asp-for="Request.RequestDescription" class="col-sm-4 col-form-label">Talep Tanımı</label>
+                        <label asp-for="Request.RequestDescription" class="col-sm-4 col-form-label">Talep Açıklaması</label>
 
                         <div class="col-sm-8">
                             <input asp-for="Request.RequestDescription" class="form-control" readonly />
                             <span asp-validation-for="Request.RequestDescription" class="text-danger" readonly></span>
                         </div>
                     </div>
-
+                    <div class="form-group  row">
+                        <label class="col-sm-4 col-form-label">Talebe Ait Dosyalar</label>
+                        <div class="col-sm-8">
+                            @if (RequestFiles != null && RequestFiles.Count > 0)
+                            {
+                                foreach (var item in RequestFiles)
+                                {
+                                    <div>
+                                        @Html.ActionLink(" " + item.FilePath, "Download", new { FilePath = item.FilePath }, new { @class = "btn btn-dark fa fa-download" })
+                                        <br /> <br />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
                     <div class="form-group row">
 
                         <label class="col-sm-4 col-form-label" for="inputState">Talep Önceliği(Gönderen Birim)</label>

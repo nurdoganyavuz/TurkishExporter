@@ -1,0 +1,29 @@
+Action içine --->>
+IEnumerable<HttpPostedFileBase> DamagesReportsImage
+
+
+
+
+action altına--->>
+
+var reportImage = DamagesReportsImage.ToList();
+
+                    if (reportImage[0] != null && reportImage.Count() > 0)
+                    {
+
+                        foreach (var image in DamagesReportsImage)
+                        {
+                        var img = new DamagesReportImages { DamagesID = damages.ID };
+
+                        string photoName = (DateTime.Now.Second.ToString() + damages.ID +"_"+ Path.GetFileName(image.FileName));
+                        var url = Path.Combine(Server.MapPath("~/Content/images/damages/" + photoName));
+                        image.SaveAs(url);
+                        img.Image = photoName;
+                        db.DamagesReportImages.Add(img);
+                    }
+
+                        db.SaveChanges();
+                    }
+
+
+

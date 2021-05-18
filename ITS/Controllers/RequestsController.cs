@@ -98,8 +98,9 @@ namespace KobiAsITS.Controllers
                 var WhoUser = _context.Users.Where(x => x.Uuid == WhoIsUser).FirstOrDefault(); //Talep ekleme kısmında giriş yapan kimse "talep gönderen kişiye" o atansın, giriş yapan kullanıcı tekrar isim girmesin diye.
                 request.UserId = WhoUser.Id;
                 request.Uuid = Guid.NewGuid().ToString();
-                request.UpdateDate = DateTime.Now;
                 request.Status = ValueEnums.waitingByteStatus;
+                request.CreateDate = DateTime.Now;
+                request.UpdateDate = DateTime.Now;
                 _context.Add(request);
                 await _context.SaveChangesAsync();
 

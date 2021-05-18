@@ -3,6 +3,9 @@
         pageLength: 25,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+        },
         buttons: [
             { extend: 'copy' },
             { extend: 'csv' },
