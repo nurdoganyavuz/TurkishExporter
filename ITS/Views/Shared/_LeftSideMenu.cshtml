@@ -3,7 +3,7 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="image" class="rounded-circle" width="50px" height="50px" src="~/assets/img/default.jpg" />
+                    <img alt="image" class="rounded-circle" width="50px" height="50px" src="~/assets/img/default.jpg"  style="text-align:center"/>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="block m-t-xs font-bold">@User.Identity.Name </span>
                         <span class="text-muted text-xs block">@(User?.FindFirst(p => p.Type == "Departmant")?.Value)<b class="caret"></b></span>

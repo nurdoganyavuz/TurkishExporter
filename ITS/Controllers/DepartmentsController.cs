@@ -26,7 +26,9 @@ namespace KobiAsITS.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departments.ToListAsync());
+            var departments = _context.Departments.Include(d => d.Users);
+            return View(departments);
+            //return View(await _context.Departments.ToListAsync());
         }
 
         // GET: Departments/Details/5
