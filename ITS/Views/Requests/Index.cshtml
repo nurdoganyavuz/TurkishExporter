@@ -4,6 +4,30 @@
     ViewData["Title"] = "Gelen Talepler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.btndelete').click(function () {
+                var url = $(this).attr('data-url');
+                console.log(url);
+                swal({
+                    title: "Silme Onayı",
+                    text: "Silmek istediğinizden emin misiniz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet",
+                    cancelButtonText: "İptal",
+                    closeOnConfirm: false
+                }, function () {
+                        window.location.href = url;
+                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                });
+            });
+        });
+    </script>
+}
 <nav aria-label="...">
     <div class="pager">
         <a href="/Processes/Index" class="btn btn-primary"><span aria-hidden="true"></span>Onaylı Talepler</a>
@@ -103,12 +127,12 @@
                                     {
                                         if (item.Status != KobiAsITS.Enums.ValueEnums.deniedByteStatus)
                                         {
-                                            <td>
-                                                @Html.ActionLink("Düzenle ", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                                @Html.ActionLink("Sil ", "Delete", new { Uuid = item.Uuid }, new { @class = "btn btn-danger btn-sm btn-icon entypo-pencil" }) |
-                                                @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
-                                                <!--ActionLink ile Buton İsmi, ActionName yazılır -->
-                                            </td>
+                                <td>
+                                    @Html.ActionLink("Düzenle ", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                    <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Requests", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a> |
+                                    @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
+                                    <!--ActionLink ile Buton İsmi, ActionName yazılır -->
+                                </td>
                                         }
                                         else
                                         {
@@ -116,13 +140,13 @@
                                         }
 
                                     }
-                                    </tr>
-                                }
+                                </tr>
+                            }
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
+</div>

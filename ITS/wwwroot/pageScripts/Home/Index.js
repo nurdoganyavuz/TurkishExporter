@@ -9,6 +9,9 @@
         window.location.replace("/Home?year=" + $(this).val());
     });
 
+    $("span.pie").peity("pie", {
+        fill: ['#1ab394', '#d7d7d7', '#ffffff']
+    });
     ////////////////////////////////////////
     var plotObj = $.plot($("#sendTheMostRequestByDepartment"), sendTheMostRequestByDepartment, {
         series: {
@@ -38,4 +41,7 @@
 
     var ctx2 = document.getElementById("requestStatus").getContext("2d");
     new Chart(ctx2, { type: 'bar', data: requestsData, options: barOptions });
+
+
+   
 })(jQuery, window, document);

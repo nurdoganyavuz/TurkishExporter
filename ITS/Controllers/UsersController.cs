@@ -27,8 +27,8 @@ namespace KobiAsITS.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Users.Include(u => u.Department).Include(u => u.Role);
-            return View(await applicationDbContext.ToListAsync());
+            var users = _context.Users.Include(u => u.Department).Include(u => u.Role);
+            return View(await users.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -184,8 +184,7 @@ namespace KobiAsITS.Controllers
         }
 
         // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

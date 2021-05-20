@@ -1,8 +1,32 @@
 ﻿@model IEnumerable<KobiAsITS.Models.Department>
 
 @{
-    ViewData["Title"] = "Departments"; 
+    ViewData["Title"] = "Departmanlar";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.btndelete').click(function () {
+                var url = $(this).attr('data-url');
+                console.log(url);
+                swal({
+                    title: "Silme Onayı",
+                    text: "Silmek istediğinizden emin misiniz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet",
+                    cancelButtonText: "İptal",
+                    closeOnConfirm: false
+                }, function () {
+                        window.location.href = url;
+                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                });
+            });
+        });
+    </script>
 }
 
 <h1 align="center">Departmanlar</h1>
@@ -32,6 +56,7 @@
                                 <th>Id</th>
                                 <th>Departman Adı</th>
                                 <th>Oluşturulma Tarihi</th>
+                                <th>Kayıtlı Kullanıcı Sayısı</th>
                                 <th>Durum</th>
                                 <th align="center">İşlemler</th>
                             </tr>
@@ -53,12 +78,16 @@
                                         }
                                     </td>
                                     <td>
+                                        
+                                        kaç kullanıcı oldugu
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
                                     <td align="center">
                                         @Html.ActionLink("Düzenle", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                        @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" }) |
-                                        @Html.ActionLink("Sil", "Delete", new { Uuid = item.Uuid }, new { @class = "btn btn-danger btn-sm btn-icon entypo-pencil" })
+                                        @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" }) |                                        
+                                        <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Departments", new { id = item.Id, Uuid = item.Uuid }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a>
                                     </td>
                                 </tr>
                             }

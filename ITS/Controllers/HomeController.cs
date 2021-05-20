@@ -76,6 +76,10 @@ namespace KobiAsITS.Controllers
             model.WaitingRequests = convertHelper(model.Requests, ValueEnums.waitingByteStatus).ToJson();
             model.ConfirmRequests = convertHelper(model.Requests, ValueEnums.confirmByteStatus).ToJson();
             model.DeniedRequests = convertHelper(model.Requests, ValueEnums.deniedByteStatus).ToJson();
+
+            model.RequestsDb = _context.Requests.Include(p => p.Process).ToList();
+
+            
             return View(model);
         }
 

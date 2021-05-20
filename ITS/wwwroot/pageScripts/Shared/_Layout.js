@@ -1,4 +1,36 @@
 ﻿$(document).ready(function () {
+
+    $('.textarea-maxlength').keyup(function () {
+        var thisParent = $(this).parent();
+        var theCount = thisParent.find('.the-count-message');
+        var characterCount = $(this).val().length,
+            current = thisParent.find('.current-message'),
+            maximum = thisParent.find('.maximum-message');
+        var maximumInt = parseInt(maximum.text());
+        current.text(characterCount);
+
+        if (characterCount < maximumInt / 4) {
+            current.css('color', '#666');
+        }
+        if (characterCount > maximumInt / 4) {
+            current.css('color', '#6d5555');
+        }
+        if (characterCount > maximumInt / 2) {
+            current.css('color', '#793535');
+        }
+
+        if (characterCount >= maximumInt) {
+            maximum.css('color', '#8f0001');
+            current.css('color', '#8f0001');
+            theCount.css('font-weight', 'bold');
+        } else {
+            maximum.css('color', '#666');
+            theCount.css('font-weight', 'normal');
+        }
+
+    });
+
+
     $('.dataTables-example').DataTable({
         pageLength: 25,
         responsive: true,
