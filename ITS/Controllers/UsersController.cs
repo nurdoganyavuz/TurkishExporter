@@ -10,6 +10,7 @@ using KobiAsITS.Models;
 using KobiAsITS.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Core.Utilities.Security.Hashing;
+using KobiAsITS.ViewModels;
 
 namespace KobiAsITS.Controllers
 {
@@ -160,6 +161,32 @@ namespace KobiAsITS.Controllers
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "DepartmentName", user.DepartmentId);
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name", user.RoleId);
             return View(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserPasswordChange(PasswordChangeViewModel passwordChangeViewModel, User user)
+        {
+            
+               
+                if (user != null)
+                {
+                    if (passwordChangeViewModel.Password == passwordChangeViewModel.PasswordRepeat)
+                    {
+                        byte[] passwordHash, passwordSalt;
+                        HashingHelper.CreatePasswordHash(passwordChangeViewModel.Password, out passwordHash, out passwordSalt);
+                        user.PasswordHash = passwordHash;
+                        user.PasswordSalt = passwordSalt;
+                        user.ResetPasswordCode = null;
+                        user.ResetPasswordExpired = null;
+                        user.UpdateDate = DateTime.Now;
+                        _context.Update(user);
+                        await _context.SaveChangesAsync();
+                    ViewBag.Success = "Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.";
+                    }
+                    else
+                        ViewBag.Error = "Şifreler eşleşmiyor!";
+                }
+                return View();
+            
         }
 
         // GET: Users/Delete/5

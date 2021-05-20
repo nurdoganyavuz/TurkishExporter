@@ -9,7 +9,8 @@
                         <span class="text-muted text-xs block">@(User?.FindFirst(p => p.Type == "Departmant")?.Value)<b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="dropdown-item" href="@Url.Action("Edit", "Users", new { Uuid = Context.Request.Cookies["Uuid"] })">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Edit", "Users", new { Uuid = Context.Request.Cookies["Uuid"] })">Kullanıcı Bilgileri</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("UserPasswordChange", "Users", new { Id = Context.Request.Cookies["Id"] })">Şifre Değiştir</a></li>
                         <li class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/Login/Logout">Çıkış</a></li>
                     </ul>
