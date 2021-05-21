@@ -46,7 +46,7 @@
                         <div class="col-sm-8">
                             <input asp-for="RequestTitle" class="form-control" />
                         </div>
-                    </div>                   
+                    </div>
                     <div class="form-group  row">
                         <label asp-for="RequestDescription" class="col-sm-4 col-form-label">Talep Açıklaması</label>
                         <div class="col-md-8">
@@ -94,33 +94,37 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group  row">
-                        <label asp-for="Status" class="col-sm-4 col-form-label">Onay Durumu</label>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="form-group  row">
+                            <label asp-for="Status" class="col-sm-4 col-form-label">Onay Durumu</label>
 
-                        <div class="col-sm-8">
-                            <select name="Status" id="Status" class="form-control">
+                            <div class="col-sm-8">
+                                <select name="Status" id="Status" class="form-control">
 
-                                @if (Model.Status == @KobiAsITS.Enums.ValueEnums.waitingByteStatus)
-                                {
-                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
+                                    @if (Model.Status == @KobiAsITS.Enums.ValueEnums.waitingByteStatus)
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
 
-                                }
-                                else if (Model.Status == @KobiAsITS.Enums.ValueEnums.confirmByteStatus)
-                                {
-                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
+                                    }
+                                    else if (Model.Status == @KobiAsITS.Enums.ValueEnums.confirmByteStatus)
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
 
-                                }
-                                else
-                                {
-                                    <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@Model.Status" selected hidden>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
 
-                                }
-                                <option value=@KobiAsITS.Enums.ValueEnums.waitingByteStatus>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
-                                <option value=@KobiAsITS.Enums.ValueEnums.confirmByteStatus>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
-                                <option value=@KobiAsITS.Enums.ValueEnums.deniedByteStatus>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
-                            </select>
+                                    }
+                                    <option value=@KobiAsITS.Enums.ValueEnums.waitingByteStatus>@KobiAsITS.Enums.ValueEnums.waitingStatus</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.confirmByteStatus>@KobiAsITS.Enums.ValueEnums.confirmStatus</option>
+                                    <option value=@KobiAsITS.Enums.ValueEnums.deniedByteStatus>@KobiAsITS.Enums.ValueEnums.deniedStatus</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    }
+
                     <div class="form-group" style="text-align:right">
                         <input type="submit" value="Güncelle" class="btn btn-primary" />
                     </div>

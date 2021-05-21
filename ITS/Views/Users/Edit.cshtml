@@ -37,11 +37,12 @@ else
                     </div>
                 </div>
                 <div class="ibox-content">
-
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="Uuid" />
-                    
+                    <input type="hidden" asp-for="DepartmentId" />
+                    <input type="hidden" asp-for="PasswordHash" />
+                    <input type="hidden" asp-for="PasswordSalt" />
 
                     @if (User.IsInRole("Admin"))
                     {
@@ -90,7 +91,6 @@ else
                     <div class="form-group" style="text-align:right">
                         <input type="submit" value="Kaydet" class="btn btn-primary" />
                     </div>
-
                 </div>
             </div>
         </div>           

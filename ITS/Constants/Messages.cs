@@ -6,5 +6,7 @@
 
         public static string InvalidFileExtension = "Geçersiz dosya uzantısı, dosya için kabul edilen uzantılar: " + string.Join(",", ValidFileTypes);
         public static string UsersExistsInDepartment = "Bu departmana kayıtlı kullanıcılar mevcut! Silme işlemi gerçekleştirilemiyor.";
+
+        public static string MismatchedPasswords = "Girdiğiniz şifreler uyuşmuyor!";
     }
 }

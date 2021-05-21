@@ -5,12 +5,12 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="rounded-circle" width="50px" height="50px" src="~/assets/img/default.jpg"  style="text-align:center"/>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">@User.Identity.Name </span>
+                        <span class="block m-t-xs font-bold">@User.Identity.Name</span>
                         <span class="text-muted text-xs block">@(User?.FindFirst(p => p.Type == "Departmant")?.Value)<b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a class="dropdown-item" href="@Url.Action("Edit", "Users", new { Uuid = Context.Request.Cookies["Uuid"] })">Kullanıcı Bilgileri</a></li>
-                        <li><a class="dropdown-item" href="@Url.Action("UserPasswordChange", "Users", new { Id = Context.Request.Cookies["Id"] })">Şifre Değiştir</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("UserPasswordChange", "Users", new { Id = Context.Request.Cookies["UserId"] })">Şifre Değiştir</a></li>
                         <li class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/Login/Logout">Çıkış</a></li>
                     </ul>

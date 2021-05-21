@@ -42,7 +42,7 @@ namespace KobiAsITS.Controllers
             return View(await List.ToListAsync());
         }
 
-        [Authorize(Roles = "Admin")]
+        
         // GET: Requests/Details/5
         public async Task<IActionResult> Details(string Uuid)
         {
@@ -134,7 +134,6 @@ namespace KobiAsITS.Controllers
             return View(request);
         }
 
-        [Authorize(Roles = "Admin")]
         // GET: Requests/Edit/5
         public async Task<IActionResult> Edit(string Uuid)
         {
@@ -155,7 +154,6 @@ namespace KobiAsITS.Controllers
             return View(request);
         }
 
-        [Authorize(Roles = "Admin")]
         // POST: Requests/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -220,7 +218,7 @@ namespace KobiAsITS.Controllers
             return View(request);
         }
         // POST: Requests/Delete/5
-        [Authorize(Roles = "Admin")]
+      
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var request = _context.Requests.Include(r => r.RequestFiles).FirstOrDefault(r => r.Id == id);

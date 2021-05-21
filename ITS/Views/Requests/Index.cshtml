@@ -21,8 +21,8 @@
                     cancelButtonText: "İptal",
                     closeOnConfirm: false
                 }, function () {
-                        window.location.href = url;
-                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                    window.location.href = url;
+                    swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
                 });
             });
         });
@@ -58,10 +58,8 @@
                                 <th>Ekleyen Birim</th>
                                 <th>Öncelik Durumu</th>
                                 <th>Onay Durumu</th>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <th>İşlemler</th>
-                                }
+                                <th>İşlemler</th>
+                               
 
                             </tr>
                         </thead>
@@ -69,78 +67,93 @@
 
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.RequestTitle)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.RequestDescription)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.UserFirstName)
-                                        @Html.DisplayFor(modelItem => item.User.UserLastName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.Department.DepartmentName)
-
-                                    </td>
-
-                                    @{
-                                        if (item.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.LowPriority</td>
-                                        }
-                                        else if (item.Priority == @KobiAsITS.Enums.ValueEnums.MediumPriorityByte)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.MediumPriority</td>
-                                        }
-                                        else if (item.Priority == @KobiAsITS.Enums.ValueEnums.HighPriorityByte)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.HighPriority</td>
-                                        }
-                                        else if (item.Priority == @KobiAsITS.Enums.ValueEnums.UrgentPriorityByte)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.UrgentPriority</td>
-                                        }
-                                    }
-                                    @{
-                                        if (item.Status == KobiAsITS.Enums.ValueEnums.waitingByteStatus)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.waitingStatus</td>
-                                        }
-                                        else if (item.Status == KobiAsITS.Enums.ValueEnums.confirmByteStatus)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.confirmStatus</td>
-                                        }
-                                        else if (item.Status == KobiAsITS.Enums.ValueEnums.deniedByteStatus)
-                                        {
-                                            <td>@KobiAsITS.Enums.ValueEnums.deniedStatus</td>
-                                        }
-
-
-
-                                    }
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        if (item.Status != KobiAsITS.Enums.ValueEnums.deniedByteStatus)
-                                        {
+                            <tr>
                                 <td>
-                                    @Html.ActionLink("Düzenle ", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                    <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Requests", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a> |
-                                    @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
-                                    <!--ActionLink ile Buton İsmi, ActionName yazılır -->
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
-                                        }
-                                        else
-                                        {
-                                            <td>@Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
-                                        }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequestTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequestDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.UserFirstName)
+                                    @Html.DisplayFor(modelItem => item.User.UserLastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Department.DepartmentName)
 
+                                </td>
+
+                                @{
+                                    if (item.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.LowPriority</td>
                                     }
-                                </tr>
+                                    else if (item.Priority == @KobiAsITS.Enums.ValueEnums.MediumPriorityByte)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.MediumPriority</td>
+                                    }
+                                    else if (item.Priority == @KobiAsITS.Enums.ValueEnums.HighPriorityByte)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.HighPriority</td>
+                                    }
+                                    else if (item.Priority == @KobiAsITS.Enums.ValueEnums.UrgentPriorityByte)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.UrgentPriority</td>
+                                    }
+                                }
+                                @{
+                                    if (item.Status == KobiAsITS.Enums.ValueEnums.waitingByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.waitingStatus</td>
+                                    }
+                                    else if (item.Status == KobiAsITS.Enums.ValueEnums.confirmByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.confirmStatus</td>
+                                    }
+                                    else if (item.Status == KobiAsITS.Enums.ValueEnums.deniedByteStatus)
+                                    {
+                                        <td>@KobiAsITS.Enums.ValueEnums.deniedStatus</td>
+                                    }
+
+
+
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    if (item.Status != KobiAsITS.Enums.ValueEnums.deniedByteStatus)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Düzenle ", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                            <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Requests", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a> |
+                                            @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
+                                            <!--ActionLink ile Buton İsmi, ActionName yazılır -->
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (item.Status == KobiAsITS.Enums.ValueEnums.waitingByteStatus)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Düzenle ", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                            <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Requests", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a> |
+                                            @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })                                          
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td> - </td>
+                                    }
+                                }
+                            </tr>
                             }
 
                         </tbody>

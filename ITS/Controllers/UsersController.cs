@@ -11,6 +11,7 @@ using KobiAsITS.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Core.Utilities.Security.Hashing;
 using KobiAsITS.ViewModels;
+using KobiAsITS.Constants;
 
 namespace KobiAsITS.Controllers
 {
@@ -117,6 +118,7 @@ namespace KobiAsITS.Controllers
         [Authorize()]
         public async Task<IActionResult> Edit(int id, User user, string password)
         {
+
             if (id != user.Id)
             {
                 return NotFound();
@@ -162,33 +164,46 @@ namespace KobiAsITS.Controllers
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name", user.RoleId);
             return View(user);
         }
-        [HttpPost]
-        public async Task<IActionResult> UserPasswordChange(PasswordChangeViewModel passwordChangeViewModel, User user)
+        public IActionResult UserPasswordChange(int id)
         {
-            
-               
-                if (user != null)
-                {
-                    if (passwordChangeViewModel.Password == passwordChangeViewModel.PasswordRepeat)
-                    {
-                        byte[] passwordHash, passwordSalt;
-                        HashingHelper.CreatePasswordHash(passwordChangeViewModel.Password, out passwordHash, out passwordSalt);
-                        user.PasswordHash = passwordHash;
-                        user.PasswordSalt = passwordSalt;
-                        user.ResetPasswordCode = null;
-                        user.ResetPasswordExpired = null;
-                        user.UpdateDate = DateTime.Now;
-                        _context.Update(user);
-                        await _context.SaveChangesAsync();
-                    ViewBag.Success = "Şifreniz başarıyla sıfırlandı. Giriş yapabilirsiniz.";
-                    }
-                    else
-                        ViewBag.Error = "Şifreler eşleşmiyor!";
-                }
-                return View();
-            
-        }
+            var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+            if (user==null)
+            {
+                return NotFound();
+            }
+            return View();
 
+
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> UserPasswordChange(int id,  UserPasswordChangeViewModel userPasswordChangeViewModel)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (id != user.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (userPasswordChangeViewModel.Password == userPasswordChangeViewModel.PasswordRepeat)
+                {
+                    byte[] passwordHash, passwordSalt;
+                    HashingHelper.CreatePasswordHash(userPasswordChangeViewModel.Password, out passwordHash, out passwordSalt);
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+                    user.UpdateDate = DateTime.Now;
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    TempData["message"] = Messages.MismatchedPasswords;
+                    TempData.Keep();
+            }           
+            return View();
+        }
         // GET: Users/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string? Uuid)
