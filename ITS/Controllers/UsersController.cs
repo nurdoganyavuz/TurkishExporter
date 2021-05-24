@@ -75,6 +75,13 @@ namespace KobiAsITS.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userExists = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
+                if (userExists != null)
+                {
+                    TempData["messageCreateUser"] = Messages.UsersExists;
+                    TempData.Keep();
+                    return RedirectToAction("Create", "Users");
+                }
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
                 user.PasswordHash = passwordHash;
@@ -196,7 +203,8 @@ namespace KobiAsITS.Controllers
                     user.UpdateDate = DateTime.Now;
                     _context.Update(user);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
+                    TempData["message"] = Messages.ChangedPassword;
+                    TempData.Keep();   
                 }
                 else
                     TempData["message"] = Messages.MismatchedPasswords;

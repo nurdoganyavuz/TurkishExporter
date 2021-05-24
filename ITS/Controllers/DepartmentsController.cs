@@ -150,7 +150,7 @@ namespace KobiAsITS.Controllers
             {
                 TempData["messageDelete"] = Messages.UsersExistsInDepartment;
                 TempData.Keep();
-                return RedirectToAction("Delete", "Departments", new { uuid = Uuid });
+                return RedirectToAction("Index", "Departments");
             }
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
