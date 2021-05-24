@@ -4,30 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            $('.btndelete').click(function () {
-                var url = $(this).attr('data-url');
-                console.log(url);
-                swal({
-                    title: "Silme Onayı",
-                    text: "Silmek istediğinizden emin misiniz?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Evet",
-                    cancelButtonText: "İptal",
-                    closeOnConfirm: false
-                }, function () {
-                        window.location.href = url;
-                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
-                });
-            });
-        });
-    </script>
-}
+
 
 <h1>İşleme Alınan Talepler</h1>
 
@@ -136,8 +113,7 @@
                                         if (item.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
                                         {
                                             <td>
-                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                                <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Processes", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a> |
+                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) | 
                                                 @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
                                                 <!--ActionLink ile Buton İsmi, ActionName yazılır -->
                                             </td>
@@ -148,7 +124,7 @@
                                         }
                                     }
                                 </tr>
-                            }
+                             }
                         </tbody>
                     </table>
                 </div>

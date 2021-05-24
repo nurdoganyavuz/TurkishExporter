@@ -21,8 +21,8 @@
                     cancelButtonText: "İptal",
                     closeOnConfirm: false
                 }, function () {
-                        window.location.href = url;
-                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                    window.location.href = url;
+                    swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
                 });
             });
         });
@@ -88,13 +88,23 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
-                                    <td align="center">
-                                        @Html.ActionLink("Düzenle", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
-                                        @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" }) |
-                                        <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Users", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a>
-                                    </td>
+                                    @if (item.Status == true)
+                                    {
+                                        <td align="center">
+                                            @Html.ActionLink("Düzenle", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                            @Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" }) |
+                                            <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Users", new { id = item.Id }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td align="center">
+                                            @Html.ActionLink("Düzenle", "Edit", new { Uuid = item.Uuid }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) 
+                                        </td>
+                                    }
+
                                 </tr>
-                            }
+                             }
                         </tbody>
                     </table>
                 </div>

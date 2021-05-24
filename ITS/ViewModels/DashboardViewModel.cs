@@ -11,6 +11,6 @@ namespace KobiAsITS.ViewModels
         public dynamic ConfirmRequests { get; set; }
         public dynamic DeniedRequests { get; set; }
         public List<RequestReportModel> Requests { get; set; }
-        public List<Request> RequestsDb { get; set; }
+        public List<Process> Processes { get; set; }
     }
 }

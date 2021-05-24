@@ -21,13 +21,22 @@
                     cancelButtonText: "İptal",
                     closeOnConfirm: false
                 }, function () {
-                        window.location.href = url;
-                        swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
+                    window.location.href = url;
+                    swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
                 });
             });
         });
     </script>
 }
+@if (TempData["roleDelete"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        @TempData["roleDelete"]
+    </div>
+    TempData.Remove("roleDelete");
+}
+
 <h1 align="center">Roller</h1>
 
 <p align="right">
@@ -56,6 +65,7 @@
                                 <th>Rol Adı</th>
                                 <th>Oluşturulma Tarihi</th>
                                 <th>Durum</th>
+                                <th>Kayıtlı Personel Sayısı</th>
                                 <th align="center">İşlemler</th>
                             </tr>
                         </thead>
@@ -77,6 +87,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Users.Count) kişi
                                     </td>
                                     <td align="center">
                                         @Html.ActionLink("Düzenle", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |

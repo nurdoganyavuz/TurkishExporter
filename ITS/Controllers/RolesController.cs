@@ -9,6 +9,7 @@ using KobiAsITS.Data;
 using KobiAsITS.Models;
 using KobiAsITS.Enums;
 using Microsoft.AspNetCore.Authorization;
+using KobiAsITS.Constants;
 
 namespace KobiAsITS.Controllers
 {
@@ -25,7 +26,9 @@ namespace KobiAsITS.Controllers
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Roles.ToListAsync());
+            var roles = _context.Roles.Include(r => r.Users);
+            return View(roles);
+            //return View(await _context.Roles.ToListAsync());
         }
 
         // GET: Roles/Details/5
@@ -138,7 +141,17 @@ namespace KobiAsITS.Controllers
         
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
+            var role = await _context.Roles.Include(r=> r.Users).FirstOrDefaultAsync(r=> r.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            else if (role.Users.Any())
+            {
+                TempData["roleDelete"] = Messages.UsersExistsInRole;
+                TempData.Keep();
+                return RedirectToAction("Index", "Roles");
+            }
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

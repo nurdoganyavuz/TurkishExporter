@@ -105,7 +105,17 @@ namespace KobiAsITS.Controllers
                 {
                     request.RequestTitle = process.Request.RequestTitle;
                     request.RequestDescription = process.Request.RequestDescription;
-                    request.RequestProgressStatus = process.Status == ValueEnums.CompletedByteStatus ? 100 : RequestProgressStatus; //ilerleme durumu %100 old. zaman statusu tamamlandı olarak atanıyor.
+                    request.RequestProgressStatus = RequestProgressStatus;
+                    if (process.Status == ValueEnums.CompletedByteStatus) //statusu tamamlandı olarak seçildiğinde ilerleme durumu otomatik olarak %100 atanıyor, kesin bitiş tarihi sistem saati olarak default veriliyor.
+                    {
+                        process.ExpirationDate = DateTime.Now;
+                        request.RequestProgressStatus = 100;
+                    }
+                    else if (RequestProgressStatus == 100) //ilerleme durumu %100 yapıldıgında statusu tamamlandı olarak atanıyor, kesin bitiş tarihi sistem saati olarak default veriliyor.
+                    {
+                        process.ExpirationDate = DateTime.Now;
+                        process.Status = ValueEnums.CompletedByteStatus;
+                    }                    
                     process.Request = request;
                     _context.Update(process);
                     await _context.SaveChangesAsync();
@@ -151,10 +161,10 @@ namespace KobiAsITS.Controllers
         }
         // POST: Processes/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int requestId)
         {
             var process = await _context.Processes.FindAsync(id);
-            _context.Processes.Remove(process);
+            _context.Processes.Remove(process);            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
