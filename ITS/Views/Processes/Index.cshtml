@@ -129,15 +129,15 @@
                                     {
                                         if (item.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
                                         {
-                                            <td>
-                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
+                                            <td style="text-align:center">
+                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) | 
                                                 @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
                                                 <!--ActionLink ile Buton İsmi, ActionName yazılır -->
                                             </td>
                                         }
                                         else
                                         {
-                                            <td>@Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
+                                            <td style="text-align:center">@Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
                                         }
                                     }
                                 </tr>

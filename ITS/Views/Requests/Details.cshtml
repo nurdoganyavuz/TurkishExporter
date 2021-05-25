@@ -158,13 +158,15 @@
                     {
                         <div class="form-group  row">
                             <label asp-for="RefuseMessage" class="col-sm-4 col-form-label">Red Nedeni</label>
-
-                            <div class="col-sm-8">
-                                <input asp-for="RefuseMessage" class="form-control" readonly />
-                                <span asp-validation-for="RefuseMessage" class="text-danger"></span>
+                            <div class="col-md-8">
+                                <textarea asp-for="RefuseMessage" rows="4" cols="50" class="form-control textarea-maxlength" maxlength="200" readonly></textarea>
+                                <div class="the-count-message" style="float:right">
+                                    <span class="current-message">@(Model.RefuseMessage?.Length)</span>
+                                    <span class="maximum-message">/200</span>
+                                </div>
                             </div>
-                        </div>
-                    }                                       
+                        </div>                        
+                    }
                 </div>
             </div>
         </div>
