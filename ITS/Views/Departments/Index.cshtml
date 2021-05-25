@@ -6,27 +6,7 @@
 }
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $('.btndelete').click(function () {
-                var url = $(this).attr('data-url');
-                console.log(url);
-                swal({
-                    title: "Silme Onayı",
-                    text: "Silmek istediğinizden emin misiniz?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Evet",
-                    cancelButtonText: "İptal",
-                    closeOnConfirm: false
-                }, function () {
-                    window.location.href = url;
-                    swal("Silindi!", "Silme işleminiz tamamlandı.", "success");
-                });
-            });
-        });
-    </script>
+    <script src="~/pageScripts/Departments/Delete.js"></script>
 }
 @if (TempData["messageDelete"] != null)
 {
@@ -98,7 +78,7 @@
                                         <a href="javascript:void(0);" data-url="@(Url.Action("DeleteConfirmed", "Departments", new { id = item.Id, Uuid = item.Uuid }))" class="btn btn-danger btn-icon entypo-pencil btndelete">Sil</a>
                                     </td>
                                 </tr>
-                             }
+                            }
                         </tbody>
                     </table>
                 </div>

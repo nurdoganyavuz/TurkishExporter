@@ -6,16 +6,7 @@
 }
 @section scripts
 {
-    <script>
-        $(document).click(function () {
-            $('.btncreate').click(function () {
-
-                swal("Başarılı!", "Departman eklendi.", "success");
-                $("#createform").submit();
-
-            });
-        });
-    </script>
+    <script src="~/pageScripts/Departments/Create.js"></script>
 }
 
 <nav aria-label="...">
@@ -47,14 +38,14 @@
                     <div class="form-group">
 
                         <label asp-for="DepartmentName" class="control-label">Departman Adı</label>
-                        <input asp-for="DepartmentName" class="form-control" autocomplete="off" />
+                        <input asp-for="DepartmentName" class="form-control" autocomplete="off" required />
                         <span asp-validation-for="DepartmentName" class="text-danger"></span>
                     </div>
-                    
+
                     <br />
 
                     <div class="form-group" style="text-align:right">
-                        <a href="javascript:void(0);" class="btn btn-danger btn-icon entypo-pencil btncreate">Ekle</a>
+                        <input type="submit" href="javascript:void(0);" value="Ekle" class="btn btn-danger btn-icon entypo-pencil btncreate" />
                     </div>
 
                     <!--TEMA ARALIĞI BİTİŞ-->

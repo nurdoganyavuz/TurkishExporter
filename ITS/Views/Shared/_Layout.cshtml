@@ -73,6 +73,7 @@
         <!-- <partial name="_RightSideMenu" /> -->
     </div>
 
+
     <!-- Mainly scripts -->
     <script src="~/assets/js/jquery-3.1.1.min.js"></script>
     <script src="~/assets/js/popper.min.js"></script>
@@ -150,6 +151,18 @@
     <script src="~/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
 
     <script src="~/pageScripts/Shared/_Layout.js"></script>
+    <script>
+        $(function () {
+            $('#Statusa').change(function () {
+                if ($('#Statusa').val() == 2) {
+                    $('#redStatus').show();
+                }
+                else {
+                    $('#redStatus').hide();
+                }
+            });
+        });
+    </script>
 
     @RenderSection("scripts", false)
 </body>

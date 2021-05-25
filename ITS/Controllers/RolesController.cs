@@ -152,6 +152,8 @@ namespace KobiAsITS.Controllers
                 TempData.Keep();
                 return RedirectToAction("Index", "Roles");
             }
+            TempData["roleDelete"] = Messages.DeletedRole;
+            TempData.Keep();
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

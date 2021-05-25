@@ -8,7 +8,11 @@
 
         public static string UsersExistsInDepartment = "Bu departmana kayıtlı kullanıcılar mevcut! Silme işlemi gerçekleştirilemiyor.";
 
+        public static string DeletedDepartment = "Departman silindi.";
+
         public static string UsersExistsInRole = "Bu role kayıtlı kullanıcılar mevcut! Silme işlemi gerçekleştirilemiyor.";
+
+        public static string DeletedRole = "Rol silindi.";
 
         public static string MismatchedPasswords = "Girdiğiniz şifreler uyuşmuyor!";
 

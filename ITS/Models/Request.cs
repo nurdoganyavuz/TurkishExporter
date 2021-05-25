@@ -15,6 +15,7 @@ namespace KobiAsITS.Models
         public int UserId { get; set; }
         public string RequestDescription { get; set; }
         public string RequestTitle { get; set; }
+        public string RefuseMessage { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public byte Priority { get; set; }

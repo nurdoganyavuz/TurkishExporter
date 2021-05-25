@@ -4,7 +4,12 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section css {
+    <link href="~/pageCss/Requests/Index.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/pageScripts/Requests/Index.js"></script>
+}
 
 <h1>İşleme Alınan Talepler</h1>
 
@@ -46,8 +51,20 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Id)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Request.RequestDescription)
+                                    <td style="text-align:center">
+                                        @if (item.Request.RequestDescription.Length > 50)
+                                        {
+
+
+                                            @item.Request.RequestDescription.Substring(0, 50)
+                                            <br />
+                                            <a class="devamyazi btn" href="/Processes/Details/@item.Id">...devamını oku</a>
+
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.Request.RequestDescription)
+                                        }
                                     </td>
 
                                     <td>
@@ -113,7 +130,7 @@
                                         if (item.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
                                         {
                                             <td>
-                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) | 
+                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
                                                 @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
                                                 <!--ActionLink ile Buton İsmi, ActionName yazılır -->
                                             </td>
@@ -124,7 +141,7 @@
                                         }
                                     }
                                 </tr>
-                             }
+                            }
                         </tbody>
                     </table>
                 </div>

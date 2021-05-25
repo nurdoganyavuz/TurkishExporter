@@ -1,0 +1,11 @@
+﻿.caticerik {
+    height: auto;
+    width: 300px;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.devamyazi {
+    cursor: pointer;
+    color: #ED5565;
+}

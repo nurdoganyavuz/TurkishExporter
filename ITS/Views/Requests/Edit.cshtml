@@ -6,9 +6,11 @@
 
 
 }
+
+
 <nav aria-label="...">
     <div class="pager">
-        <a href="/Requests/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
+        <a href="/Requests/Index" class="btn btn-primary"><span aria-hidden="true ">&larr;</span> Geri</a>
     </div>
 </nav>
 <h1>Düzenle</h1>
@@ -65,7 +67,6 @@
                             <span asp-validation-for="CreateDate" class="text-danger"></span>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="inputState">Öncelik Durumu</label>
                         <div class="col-sm-8">
@@ -88,9 +89,7 @@
                                 else
                                 {
                                     <option value="@Model.Priority" selected hidden>@KobiAsITS.Enums.ValueEnums.UrgentPriority</option>
-
                                 }
-
                             </select>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                             <label asp-for="Status" class="col-sm-4 col-form-label">Onay Durumu</label>
 
                             <div class="col-sm-8">
-                                <select name="Status" id="Status" class="form-control">
+                                <select name="Status" id="Statusa" class="form-control">
 
                                     @if (Model.Status == @KobiAsITS.Enums.ValueEnums.waitingByteStatus)
                                     {
@@ -125,11 +124,20 @@
                         </div>
                     }
 
+                    <div class="form-group row" id="redStatus" style="display:none">
+                        <label asp-for="RefuseMessage" class="col-sm-4 col-form-label">Red Nedeni</label>
+                        <div class="col-md-8">
+                            <textarea asp-for="RefuseMessage" rows="4" cols="50" class="form-control textarea-maxlength" maxlength="200"></textarea>
+                            <div class="the-count-message" style="float:right">
+                                <span class="current-message">@(Model.RefuseMessage?.Length)</span>
+                                <span class="maximum-message">/200</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group" style="text-align:right">
                         <input type="submit" value="Güncelle" class="btn btn-primary" />
                     </div>
-
-
                 </div>
             </div>
         </div>

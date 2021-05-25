@@ -4,6 +4,7 @@
 }
 @section css {
     <link href="~/pageCss/Home/Index.css" rel="stylesheet" />
+    <link href="~/pageCss/Requests/Index.css" rel="stylesheet" />
 }
 @section scripts {
 
@@ -19,6 +20,9 @@
 
     <!-- ChartJS-->
     <script src="~/assets/js/plugins/chartJs/Chart.min.js"></script>
+
+    <!-- Devamını oku scripti-->
+    <script src="~/pageScripts/Requests/Index.js"></script>
 
     <script>
         var sendTheMostRequestByDepartment = @Html.Raw(Model.SendTheMostRequestByDepartment);
@@ -50,6 +54,7 @@
 
     </script>
     <script src="~/pageScripts/Home/Index.js"></script>
+
 }
 
 <div class="row">
@@ -86,7 +91,6 @@
     </div>
 </div>
 <div class="row">
-
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
@@ -114,14 +118,26 @@
                         <tbody>
                             @foreach (var item in Model.Processes)
                             {
-
                                 <tr>
                                     <td>@item.Id</td>
                                     <td>@item.Request.RequestTitle</td>
-                                    <td>@item.Request.RequestDescription</td>
+                                    <td style="text-align:center">
+                                        @if (item.Request.RequestDescription.Length > 50)
+                                        {
+                                            
+
+                                                @item.Request.RequestDescription.Substring(0, 50) 
+                                           <br/>
+                                                <a class="devamyazi btn" href="/Processes/Details/@item.Id">...devamını oku</a>
+                                            
+                                        }
+                                        else
+                                        {
+                                                @Html.DisplayFor(modelItem => item.Request.RequestDescription)
+                                        }
+                                    </td>
                                     <td><span class="pie">@(item.Request.RequestProgressStatus)/100</span></td>
                                     <td style="font-weight: bold">@(item.Request.RequestProgressStatus)%</td>
-
                                     @{
                                         if (item.Priority == KobiAsITS.Enums.ValueEnums.LowPriorityByte)
                                         {
@@ -139,7 +155,6 @@
                                         {
                                             <td><span class="label label-danger">@KobiAsITS.Enums.ValueEnums.UrgentPriority</span></td>
                                         }
-
                                     }
                                     @{
                                         if (item.Status == KobiAsITS.Enums.ValueEnums.ContinueByteStatus)
@@ -154,12 +169,9 @@
                                         {
                                             <td><span class="label label-primary">@KobiAsITS.Enums.ValueEnums.Completed</span></td>
                                         }
-
                                     }
                                 </tr>
-
-
-                             }
+                            }
                         </tbody>
                     </table>
                 </div>

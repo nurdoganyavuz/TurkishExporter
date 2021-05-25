@@ -13,7 +13,7 @@
         <a href="/Requests/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
     </div>
 </nav>
-<h1 >Detaylar</h1>
+<h1>Detaylar</h1>
 
 <form asp-action="Details">
     <div class="row">
@@ -154,11 +154,17 @@
                             }
                         </div>
                     </div>
-                    <nav aria-label="..." style="text-align:right">
-                        <div class="pager">
-                            <a href="/Requests/Edit?Uuid=@Model.Uuid" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
+                    @if (Model.Status == KobiAsITS.Enums.ValueEnums.deniedByteStatus)
+                    {
+                        <div class="form-group  row">
+                            <label asp-for="RefuseMessage" class="col-sm-4 col-form-label">Red Nedeni</label>
+
+                            <div class="col-sm-8">
+                                <input asp-for="RefuseMessage" class="form-control" readonly />
+                                <span asp-validation-for="RefuseMessage" class="text-danger"></span>
+                            </div>
                         </div>
-                    </nav>
+                    }                                       
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@
     ViewData["Title"] = "Kullanıcı Ekleme";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <nav aria-label="...">
     <div class="pager">
         <a href="/Users/Index" class="btn btn-primary"><span aria-hidden="true">&larr;</span> Geri</a>
@@ -47,7 +48,7 @@
                         <label class="col-sm-4 col-form-label">Ad</label>
 
                         <div class="col-sm-8">
-                            <input asp-for="UserFirstName" class="form-control" />
+                            <input asp-for="UserFirstName" class="form-control" required />
                             <span asp-validation-for="UserFirstName" class="text-danger"></span>
                         </div>
                     </div>
@@ -55,7 +56,7 @@
                         <label class="col-sm-4 col-form-label">Soyad</label>
 
                         <div class="col-sm-8">
-                            <input asp-for="UserLastName" class="form-control" />
+                            <input asp-for="UserLastName" class="form-control" required />
                             <span asp-validation-for="UserLastName" class="text-danger"></span>
                         </div>
                     </div>
@@ -64,7 +65,7 @@
                         <label class="col-sm-4 col-form-label">Email</label>
 
                         <div class="col-sm-8">
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control" required />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
@@ -73,7 +74,7 @@
                         <label class="col-sm-4 col-form-label">Şifre</label>
 
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" name="password" id="password" />
+                            <input type="password" class="form-control" name="password" id="password" required />
                         </div>
                     </div>
 
@@ -87,10 +88,9 @@
                         </div>
                     </div>
 
-
                     <div class="form-group" style="text-align:right">
                         <input type="submit" value="Kaydet" class="btn btn-primary" />
-                    </div>
+                    </div>                 
                 </div>
             </div>
         </div>

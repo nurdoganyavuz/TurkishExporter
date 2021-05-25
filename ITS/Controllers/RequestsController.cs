@@ -157,7 +157,7 @@ namespace KobiAsITS.Controllers
         // POST: Requests/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Request request)
+        public async Task<IActionResult> Edit(int id, Request request, string refuseMessage)
         {
             if (id != request.Id)
             {
@@ -170,7 +170,7 @@ namespace KobiAsITS.Controllers
                 {
                     request.UpdateDate = DateTime.Now;
                     _context.Update(request);
-                    if (request.Status == 1)
+                    if (request.Status == ValueEnums.confirmByteStatus)
                     {
                         var WhoIsUser = User?.FindFirst(p => p.Type == "Uuid")?.Value;
                         var WhoUser = _context.Users.Where(x => x.Uuid == WhoIsUser).FirstOrDefault(); //talebi onaylayan kişiyi çekebilmek için yazıldı.

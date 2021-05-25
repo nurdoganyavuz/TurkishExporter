@@ -152,6 +152,8 @@ namespace KobiAsITS.Controllers
                 TempData.Keep();
                 return RedirectToAction("Index", "Departments");
             }
+            TempData["messageDelete"] = Messages.DeletedDepartment;
+            TempData.Keep();
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

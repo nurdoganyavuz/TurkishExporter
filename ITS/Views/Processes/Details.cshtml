@@ -123,9 +123,12 @@
                         </div>
                     </div>
                     <nav aria-label="..." style="text-align:right">
-                        <div class="pager">
-                            <a href="/Processes/Edit/@Model.Id" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
-                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="pager">
+                                <a href="/Processes/Edit/@Model.Id" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
+                            </div>
+                        }
                     </nav>
                 </div>
             </div>
