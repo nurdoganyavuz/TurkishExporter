@@ -56,22 +56,22 @@
                             <span asp-validation-for="Email" class="text-danger" disabled></span>
                         </div>
                     </div>
+
                     <div class="form-group  row">
                         <label asp-for="CreateDate" class="col-sm-4 col-form-label">Oluşturulma Tarihi</label>
 
-                        <div class="col-sm-8">
-                            <input asp-for="CreateDate" class="form-control" readonly />
-                            <span asp-validation-for="CreateDate" class="text-danger" disabled></span>
+                        <div class="col-sm-8">                           
+                            <input name="CreateDate" id="CreateDate" type="date" value="@Model.CreateDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Oluşturulma Tarihi" readonly />
                         </div>
                     </div>
                     <div class="form-group  row">
                         <label asp-for="UpdateDate" class="col-sm-4 col-form-label">Güncellenme Tarihi</label>
 
                         <div class="col-sm-8">
-                            <input asp-for="UpdateDate" class="form-control" readonly />
+                            <input name="UpdateDate" id="UpdateDate" type="date" value="@Model.UpdateDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Güncelleme Tarihi" readonly />
                             <span asp-validation-for="UpdateDate" class="text-danger" disabled></span>
                         </div>
-                    </div>
+                    </div>                                      
                     <div class="form-group  row">
                         <label asp-for="Status" class="col-sm-4 col-form-label">Aktiflik Durumu</label>
 
@@ -101,7 +101,7 @@
 
                     <nav aria-label="..." style="text-align:right">
                         <div class="pager">
-                            <a href="/Users/Edit?Uuid=@Model.Uuid" class="btn btn-primary" ><span aria-hidden="true"></span>Düzenle</a>
+                            <a href="/Users/Edit?Uuid=@Model.Uuid" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>
                         </div>
                     </nav>
 

@@ -152,6 +152,15 @@
                                     </div>
                                 }
                             }
+                            else
+                            {
+                                <div class="form-group  row">
+                                    <div class="col-sm-12">
+                                        <input asp-for="RequestFiles" value="Ek dosya yüklenmedi." class="form-control" readonly />
+                                        <span asp-validation-for="RequestFiles" class="text-danger" readonly></span>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                     @if (Model.Status == KobiAsITS.Enums.ValueEnums.deniedByteStatus)

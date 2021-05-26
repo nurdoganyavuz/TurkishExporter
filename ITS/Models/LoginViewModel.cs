@@ -23,3 +23,5 @@ namespace KobiAsITS.Models
         public bool IsRememberMe { get; set; }
     }
 }
+
+//TODO: bu class silinecek.

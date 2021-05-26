@@ -72,6 +72,14 @@ else
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="CreateDate" class="control-label">Oluşturulma Tarihi</label>
+                        <input name="CreateDate" id="CreateDate" type="date" value="@Model.CreateDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Oluşturulma Tarihi" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdateDate" class="control-label">Güncelleme Tarihi</label>
+                        <input name="UpdateDate" id="UpdateDate" type="date" value="@Model.UpdateDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Güncelleme Tarihi" readonly />
+                    </div>
 
                     @if (User.IsInRole("Admin"))
                     {

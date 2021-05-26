@@ -47,34 +47,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="VerificationDate" class="control-label">Onaylama Tarihi</label>
-                        <input name="VerificationDate" id="VerificationDate" type="date" value="@Model.VerificationDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Onaylama Tarihi" readonly />
+                    <div class="form-group row">
+                        <label asp-for="VerificationDate" class="col-sm-4 col-form-label">Onaylama Tarihi</label>
+                        <div class="col-sm-8">
+                            <input name="VerificationDate" id="VerificationDate" type="date" value="@Model.VerificationDate.ToString("yyyy-MM-dd")" class="form-control" placeholder="Onaylama Tarihi" readonly />
+                        </div>                        
                     </div>
-                    <div class="form-group">
-                        <label asp-for="ExpectedEndDate" class="control-label">Tahmini Bitiş Tarihi</label>
+                    
+                    <div class="form-group row">
+                        <label asp-for="ExpectedEndDate" class="col-sm-4 col-form-label">Tahmini Bitiş Tarihi</label>
                         @if (Model.ExpectedEndDate == null)
                         {
-                            <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" placeholder="Tahmini Bitiş Tarihi" required />
-
+                            <div class="col-sm-8">
+                                <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" placeholder="Tahmini Bitiş Tarihi" required />
+                            </div>                
                         }
                         else
                         {
-                            <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" value="@Model.ExpectedEndDate.Value.ToString("yyyy-MM-dd")" placeholder="Tahmini Bitiş Tarihi" required />
+                            <div class="col-sm-8">
+                                <input name="ExpectedEndDate" id="ExpectedEndDate" type="date" class="form-control" value="@Model.ExpectedEndDate.Value.ToString("yyyy-MM-dd")" placeholder="Tahmini Bitiş Tarihi" required />
+                            </div>                           
                         }
                     </div>
-                    <div class="form-group">
-                        <label asp-for="ExpirationDate" class="control-label">Kesin Bitiş Tarihi</label>
+                    <div class="form-group row">
+                        <label asp-for="ExpirationDate" class="col-sm-4 col-form-label">Kesin Bitiş Tarihi</label>
                         @if (Model.ExpirationDate == null)
                         {
-                            <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" placeholder="Kesin Bitiş Tarihi" />
-
+                            <div class="col-sm-8">
+                                <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" placeholder="Kesin Bitiş Tarihi"  />
+                            </div>                           
                         }
                         else
                         {
-                            <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" value="@Model.ExpirationDate.Value.ToString("yyyy-MM-dd")" placeholder="Kesin Bitiş Tarihi" />
+                            <div class="col-sm-8">
+                                <input name="ExpirationDate" id="ExpirationDate" type="date" class="form-control" value="@Model.ExpirationDate.Value.ToString("yyyy-MM-dd")" placeholder="Kesin Bitiş Tarihi" />
+                            </div>                            
                         }
-
                     </div>
                     <div class="form-group row">
 

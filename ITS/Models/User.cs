@@ -17,7 +17,11 @@ namespace KobiAsITS.Models
         public string Email { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime CreateDate { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime UpdateDate { get; set; }
         public bool Status { get; set; }
         public Guid? ResetPasswordCode { get; set; }
