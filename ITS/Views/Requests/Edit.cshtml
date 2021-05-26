@@ -126,7 +126,7 @@
                     <div class="form-group row" id="redStatus" style="display:none">
                         <label asp-for="RefuseMessage" class="col-sm-4 col-form-label">Red Nedeni</label>
                         <div class="col-md-8">
-                            <textarea asp-for="RefuseMessage" rows="4" cols="50" class="form-control textarea-maxlength" maxlength="200"></textarea>
+                            <textarea asp-for="RefuseMessage" rows="4" cols="50" class="form-control textarea-maxlength" maxlength="200" required></textarea>
                             <div class="the-count-message" style="float:right">
                                 <span class="current-message">@(Model.RefuseMessage?.Length)</span>
                                 <span class="maximum-message">/200</span>

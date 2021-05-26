@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <nav aria-label="..." style="text-align:right">
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin") && Model.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
                         {
                             <div class="pager">
                                 <a href="/Processes/Edit/@Model.Id" class="btn btn-primary"><span aria-hidden="true"></span>Düzenle</a>

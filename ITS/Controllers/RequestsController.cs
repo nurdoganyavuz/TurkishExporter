@@ -30,6 +30,7 @@ namespace KobiAsITS.Controllers
         public async Task<IActionResult> Index()
         {
             var List = _context.Requests
+                .Include(r=> r.RequestFiles)
                 .Include(r => r.User.Department)
                 .Include(r => r.User)
                 .Where(r => r.Status == ValueEnums.waitingByteStatus || r.Status == ValueEnums.deniedByteStatus);

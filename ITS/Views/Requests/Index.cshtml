@@ -40,6 +40,7 @@
                                 <th>Ekleyen Kişi</th>
                                 <th>Ekleyen Birim</th>
                                 <th>Öncelik Durumu</th>
+                                <th>Talep Dosyaları</th>
                                 <th>Onay Durumu</th>
                                 <th>İşlemler</th>
 
@@ -98,6 +99,19 @@
                                         }
                                     }
                                     @{
+                                        if (item.RequestFiles.Count > 0)
+                                        {
+                                            <td>
+                                                <a href="/Requests/Details?Uuid=@item.Uuid">@item.RequestFiles.Count() Dosya</a>
+                                            </td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>Dosya eklenmedi.</td>
+                                        }
+                                    }
+                                    @{
                                         if (item.Status == KobiAsITS.Enums.ValueEnums.waitingByteStatus)
                                         {
                                             <td>@KobiAsITS.Enums.ValueEnums.waitingStatus</td>
@@ -141,11 +155,11 @@
                                         else if (item.Status == KobiAsITS.Enums.ValueEnums.deniedByteStatus)
                                         {
                                             <td>@Html.ActionLink("Detay", "Details", new { Uuid = item.Uuid }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })</td>
-                                            
+
                                         }
 
                                     }
-                                    
+
                                 </tr>
                             }
                         </tbody>

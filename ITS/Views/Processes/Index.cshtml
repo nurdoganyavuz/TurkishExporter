@@ -37,7 +37,8 @@
                                 <th>Tahmini Bitiş Tarihi</th>
                                 <th>Kesin Bitiş Tarihi</th>
                                 <th>İşlem Durumu</th>
-                                <th>Birim Önceliği</th>
+                                <th>Öncelik Durumu</th>
+                                <th>Öncelik Durumu(Yazılım)</th>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <th>İşlemler</th>
@@ -104,6 +105,24 @@
 
                                     }
                                     @{
+                                        if (item.Request.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
+                                        {
+                                            <td>@KobiAsITS.Enums.ValueEnums.LowPriority</td>
+                                        }
+                                        else if (item.Request.Priority == @KobiAsITS.Enums.ValueEnums.MediumPriorityByte)
+                                        {
+                                            <td>@KobiAsITS.Enums.ValueEnums.MediumPriority</td>
+                                        }
+                                        else if (item.Request.Priority == @KobiAsITS.Enums.ValueEnums.HighPriorityByte)
+                                        {
+                                            <td>@KobiAsITS.Enums.ValueEnums.HighPriority</td>
+                                        }
+                                        else if (item.Request.Priority == @KobiAsITS.Enums.ValueEnums.UrgentPriorityByte)
+                                        {
+                                            <td>@KobiAsITS.Enums.ValueEnums.UrgentPriority</td>
+                                        }
+                                    }
+                                    @{
                                         if (item.Priority == @KobiAsITS.Enums.ValueEnums.LowPriorityByte)
                                         {
                                             <td>@KobiAsITS.Enums.ValueEnums.LowPriority</td>
@@ -130,7 +149,7 @@
                                         if (item.Status != KobiAsITS.Enums.ValueEnums.CompletedByteStatus)
                                         {
                                             <td style="text-align:center">
-                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) | 
+                                                @Html.ActionLink("Düzenle ", "Edit", new { Id = item.Id }, new { @class = "btn btn-warning btn-sm btn-icon entypo-pencil" }) |
                                                 @Html.ActionLink("Detay", "Details", new { Id = item.Id }, new { @class = "btn btn-info btn-sm btn-icon entypo-pencil" })
                                                 <!--ActionLink ile Buton İsmi, ActionName yazılır -->
                                             </td>
